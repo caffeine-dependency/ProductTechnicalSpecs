@@ -1,8 +1,8 @@
 const TechSpecs = require('./index')
 
 
-const getAll = () => {
-    return TechSpecs.find({})
+const getByID = (_id) => {
+    return TechSpecs.findById(_id)
 }
 
 const addTechSpec = (techspec) => {
