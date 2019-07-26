@@ -1,7 +1,7 @@
 const TechSpecs = require('./index')
 
 
-const getByID = (_id) => {
+const getByID = (id) => {
     return TechSpecs.findById(_id)
 }
 
@@ -10,15 +10,15 @@ const addTechSpec = (techspec) => {
 }
 
 const deleteTechSpec = () => {
-    return TechSpecs.findByIdAndRemove(_id)
+    return TechSpecs.findByIdAndRemove(id)
 }
 
 const updateTechSpec = (_id,update) => {
-    return TechSpecs.findByIdAndUpdate(_id,update)
+    return TechSpecs.findByIdAndUpdate(id,update)
 }
 
 module.exports = {
-    getAll,
+    getByID,
     addTechSpec,
     deleteTechSpec,
     updateTechSpec
