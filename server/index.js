@@ -3,6 +3,9 @@ const path = require('path');
 const parser = require('body-parser');
 const db = require('../database/index.js');
 const cors = require('cors');
+const {getByID, addTechSpec, deleteTechSpec, updateTechSpec} = require('../database/dbhelpers')
+
+
 
 const app = express();
 const port = 2003;
@@ -18,7 +21,7 @@ app.use(express.static(path.join(__dirname, '../client/dist')));
 
 app.get('/api/product/:id', (req, res) => {
   let { id } = req.params;
-  db.Product.find({id})
+  getByID({id})
   .then((data) => {
     res.status(200).send(data);
   })
@@ -27,34 +30,23 @@ app.get('/api/product/:id', (req, res) => {
   });
 })
 
-app.get('/api/text/:id', (req, res) => {
-  let { id } = req.params;
-  db.Text.find({ id })
-  .then((data) => {
-    console.log('this is data in server', data[0]);
-    res.status(200).send(data);
+app.post('/api/product', (req, res) => {
+  let { techSpec } = req.params;
+  addTechSpec({ techSpec })
+  .then(() => {
+    res.status(200).send('data added!');
   })
   .catch((error) => {
     res.status(404).send(error);
   })
 });
 
-app.get('/api/qanda/:id', (req, res) => {
-  let { id } = req.params;
-  db.QandA.findById(id)
-  .then((data) => {
-    res.status(200).send(data);
-  })
-  .catch((error) => {
-    res.status(404).send(error);
-  })
-});
 
-app.get('/api/gallery/:id', (req, res) => {
+app.delete('/api/product/:id', (req, res) => {
   let { id } = req.params;
-  db.Gallery.findById(id)
-  .then((data) => {
-    res.status(200).send(data);
+  deleteTechSpec(id)
+  .then(() => {
+    res.status(200).send('document deleted');
   })
   .catch((error) => {
     res.status(404).send(error);
