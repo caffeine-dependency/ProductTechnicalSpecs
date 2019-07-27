@@ -4,6 +4,7 @@ const parser = require('body-parser');
 const db = require('../database/index.js');
 const cors = require('cors');
 const {getByID, addTechSpec, deleteTechSpec, updateTechSpec} = require('../database/dbhelpers')
+const {getByIdSQL} = require('../database/SQL/index')
 
 
 
@@ -29,6 +30,19 @@ app.get('/api/product/:id', (req, res) => {
     res.status(404).send(error);
   });
 })
+
+app.get('/api/productsql/:id', (req, res) => {
+  let { id } = req.params;
+  getByIdSQL(id)
+  .then((data) => {
+    res.status(200).send(data.rows);
+  })
+  .catch((error) => {
+    res.status(404).send(error);
+  });
+})
+
+
 
 app.post('/api/product', (req, res) => {
   let { techSpec } = req.params;
