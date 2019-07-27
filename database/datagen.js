@@ -15,7 +15,7 @@ var imageURLGenerator = function() {
 var technicalFeaturesGenerator = function() {
     var results = [];
     for(var i = 0; i < 5; i++) {
-        results.push(faker.lorem.word())
+        results.push(`${faker.lorem.word()}`)
     }
     return results
 }
@@ -40,14 +40,14 @@ var pocketConfigGenerator = function() {
 var constructionGenerator = function() {
     var results = [];
     for(var i = 0; i < 3; i++) {
-        results.push(faker.lorem.word())
+        results.push(`${faker.lorem.word()}`)
     }
     return results
 }
 
 
 var collarConfigGenerator = function() {
-    return [faker.lorem.word(), faker.lorem.words()]
+    return [faker.lorem.word(),faker.lorem.words()]
  }
 
 
@@ -63,7 +63,7 @@ var fabricGenerator = function() {
 var materialsGenerator = function() {
     var results = [];
     for(var i = 0; i < 3; i++) {
-        results.push(faker.lorem.sentence())
+        results.push(`${faker.lorem.sentence()}`)
     }
     return results
 }
@@ -72,7 +72,7 @@ var materialsGenerator = function() {
 var careGenerator = function() {
     var results = [];
     for(var i = 0; i < 5; i++) {
-        results.push(faker.lorem.words())
+        results.push(`${faker.lorem.words()}`)
     }
     return results
 }

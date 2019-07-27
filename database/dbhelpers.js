@@ -1,20 +1,20 @@
-const TechSpecs = require('./index')
+const {TechSpec} = require('./index')
 
 
-const getByID = (id) => {
-    return TechSpecs.findById(_id)
+const getByID = ({id}) => {
+    return TechSpec.find({id})
 }
 
-const addTechSpec = (techspec) => {
-    return TechSpecs.create(techspec)
+const addTechSpec = ({techspec}) => {
+    return TechSpec.create({techspec})
 }
 
-const deleteTechSpec = () => {
-    return TechSpecs.findByIdAndRemove(id)
+const deleteTechSpec = ({id}) => {
+    return TechSpec.deleteOne({id})
 }
 
-const updateTechSpec = (_id,update) => {
-    return TechSpecs.findByIdAndUpdate(id,update)
+const updateTechSpec = ({id,update}) => {
+    return TechSpec.findByIdAndUpdate(id,update)
 }
 
 module.exports = {
