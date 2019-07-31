@@ -4,18 +4,21 @@ var faker = require('faker');
 
 
 var imageURLGenerator = function() {
-    var results = []
-    for(var i = 0; i < 6; i++) {
-        results.push(faker.image.imageUrl())
-    }
-    return results
+    return faker.image.imageUrl()
+}
+
+var imageCaptionGenerator = function() {
+    return faker.lorem.sentence()
 }
 
 
 var technicalFeaturesGenerator = function() {
     var results = [];
+    var techFeats = ["Waterproof","Breathable","Ultralight","Compact","Durable","Natural odour resistance","Versatile","Moisture-wicking","Lightweight","Quick-drying","Wrinkle resistant","Compressible","Wind resistant","Air permeable","Abrasion resistant","Water resistant","Lightly insulated","Insulated","Great warmth-to-weight ratio","Windproof","Packs up small for easy travel storage","Highly air permeable—allows air and moisture to move through the fabric for speed drying"]
     for(var i = 0; i < 5; i++) {
-        results.push(`${faker.lorem.word()}`)
+        var randomIndex = Math.floor(Math.random() * techFeats.length)
+        results.push(techFeats[randomIndex].toLowerCase())
+        techFeats.splice(randomIndex, 1)
     }
     return results
 }
@@ -61,11 +64,8 @@ var fabricGenerator = function() {
 
 
 var materialsGenerator = function() {
-    var results = [];
-    for(var i = 0; i < 3; i++) {
-        results.push(`${faker.lorem.sentence()}`)
-    }
-    return results
+    var materials = ["GORE-TEX (Waterproof)","Breathable","Fleece","Coreloft","Down Fill","Synthetic Insulation","Lightweight","Synthetic Fibre","Insulated","Softshell","Natural Fibre","Nylon","Wool Blend","Composite Construction","Phasic"]
+    return `[${materials[Math.floor(Math.random() * materials.length)].toLowerCase()}, ${faker.lorem.words()},${faker.lorem.words()}]`
 }
 
 
@@ -80,58 +80,50 @@ var careGenerator = function() {
  
 
 var questionHeaderGenerator = function() {
-    var results = [];
-    for(var i = 0; i < 9; i++) {
-        results.push(faker.lorem.sentence().slice(0, -1) + '?')
-    }
-    return results
+    return faker.lorem.sentence().slice(0, -1) + '?'
 }
 
 
 var questionContentGenerator = function() {
-    var results = [];
-    for(var i = 0; i < 9; i++) {
-        results.push(Math.floor(Math.random() * 2) === 0 ? faker.lorem.sentences() : faker.lorem.sentences());
-    }
-    return results
+    return faker.lorem.sentences()
 }
 
 
 var answerGenerator = function() {
     var results = [];
-    for(var i = 0; i < 9; i++) {
-        results.push(Math.floor(Math.random() * 2) === 0 ? faker.lorem.sentences() : faker.lorem.paragraph());
+    var randomNum = Math.floor(Math.random() * 3);
+
+    while(randomNum !== 0) {
+        results.push(faker.lorem.paragraph())
+        randomNum--
     }
     return results
 }
 
 
-var questionCountGenerator = function() {
-    return Math.floor(Math.random() * 4) + 1
-}
-
-
-var answerCountGenerator = function() {
-    return Math.floor(Math.random() * 4) + 1
-}
-
 
 var dateGenerator = function() {
-    return [faker.date.past()]
+  
+    var date = new Date(faker.date.past()).toLocaleDateString('en-US', {  
+        month : 'short',
+        year : 'numeric'
+    })
+    return date
 }
+
 
 
 var ageGenerator = function() {
-    return Math.floor(Math.random() * 55) + 18
+    return Math.floor(Math.random() * (65 - 18 + 1)) + 18;
 }
 
 var thumbsUpGenerator = function() {
-    return Math.floor(Math.random() * 10) + 1
+    return Math.floor(Math.random() * 11)
 }
 
 
 var thumbsDownGenerator = function() {
-    return Math.floor(Math.random() * 10) + 1
+    return Math.floor(Math.random() * 11)
 }
 
 
@@ -152,6 +144,7 @@ var activityGenerator = function() {
 
 module.exports = {
     imageURLGenerator,
+    imageCaptionGenerator,
     technicalFeaturesGenerator,
     designAndFitGenerator,
     zippersAndFlyGenerator,
@@ -165,8 +158,6 @@ module.exports = {
     questionHeaderGenerator,
     questionContentGenerator,
     answerGenerator,
-    questionCountGenerator,
-    answerCountGenerator,
     dateGenerator,
     ageGenerator,
     thumbsUpGenerator,
