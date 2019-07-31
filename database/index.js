@@ -1,52 +1,29 @@
-const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/pumpSquad2', { useNewUrlParser: true });
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', () => {console.log('db successfully connected')});
+var pg = require('pg');
+var conString = "postgres://samjoseph@localhost:5432/pumpsquad2";
 
-const productSchema = new mongoose.Schema({
-  id: Number,
-  imgUrl: [String],
-  technicalFeatures: [String], //around 5 keywords/not sentences for bullet points
-  designAndFit: String, //ex: 'Trim fit for base layer or light mid-layer use'
-  zippersAndFly: String,
-  pocketConfig: String,
-  construction: [String], //2 bullet points of full sentences
-  collarConfig: [String], //2 bullet points of keywords
-  hemConfig: String, //hardcode ? : 'Adjustable hem cord seals out drafts'
-  fabricTreatment: String, //hardcode ? : DWR (Durable Water Repellent) finish repels moisture
-  materials: [String], //3 bulletpoints of full sentences
-  care: [String],
-  questionHeader: [String],
-  questionContent: [String],
-  answer: [String],
-  questionCount: Number,
-  answerCount: Number,
-  date: [String], //or 'Date' ex: '2 months, 1 week ago'
-  age: [String], //ex "Over 65", "35-44"
-  numberOfThumbsUp: Number,
-  numberOfThumbsDown: Number,
-  username: String, //ex "Gabby"
-  cityAndStateAndCountry: String,
-  activity: String
-});
-const techSpecSchema = new mongoose.Schema({
-  id: Number,
-  technicalFeatures: [String], //around 5 keywords/not sentences for bullet points
-  designAndFit: String, //ex: 'Trim fit for base layer or light mid-layer use'
-  zippersAndFly: String,
-  pocketConfig: String,
-  construction: [String], //2 bullet points of full sentences
-  collarConfig: [String], //2 bullet points of keywords
-  hemConfig: String, //hardcode ? : 'Adjustable hem cord seals out drafts'
-  fabricTreatment: String, //hardcode ? : DWR (Durable Water Repellent) finish repels moisture
-  materials: [String], //3 bulletpoints of full sentences
-  care: [String]
-})
+var client = new pg.Client(conString);
+client.connect()
 
-mongoose.Promise = global.Promise;
+const getByIdSQL = (id) => {
+    return client.query(`select * from productpage where productid=${id}`)
+}
 
-const Product = mongoose.model('Product', productSchema);
-const TechSpec = mongoose.model('TechSpec', techSpecSchema)
+const addTechSpecSQL = (id,technicalFeatures,designAndFit,zippersAndFly,pocketConfig,construction,collarConfig,hemConfig,fabricTreatment,materials,care) => {
+    return client.query(`INSERT INTO techspecs (id,technicalFeatures,designAndFit,zippersAndFly,pocketConfig,construction,collarConfig,hemConfig,fabricTreatment,materials,care) VALUES (${id},'{${technicalFeatures}}','${designAndFit}','${zippersAndFly}','${pocketConfig}','{${construction}}','{${collarConfig}}','${hemConfig}','${fabricTreatment}','{${materials}}','{${care}}')`)
+}
 
-module.exports = { Product, TechSpec };
+
+
+const deleteTechSpecSQL = (id) => {
+    return client.query(`delete from techspecs where id=${id}`)
+}
+
+
+
+
+module.exports = {
+    getByIdSQL,
+    addTechSpecSQL,
+    deleteTechSpecSQL
+}
+
