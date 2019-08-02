@@ -2,6 +2,8 @@ const express = require('express');
 const path = require('path');
 const parser = require('body-parser');
 const cors = require('cors');
+const clusters = require('cluster')
+const numCPUs = require('os').cpus().length
 const {getByIdSQL, addTechSpecSQL, deleteTechSpecSQL} = require('../database/index')
 
 
@@ -55,4 +57,10 @@ app.delete('/api/product/:id', (req,res) => {
     })
 })
 
-app.listen(port, () => {console.log('server listening on port' , port)});
+if (clusters.isMaster) {
+  for (let i = 0; i < numCPUs; i++) {
+    clusters.fork();
+  }
+} else {
+  app.listen(port, () => {console.log('server listening on port' , port)});
+}
