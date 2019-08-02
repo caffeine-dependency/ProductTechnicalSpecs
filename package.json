@@ -10,7 +10,9 @@
   "scripts": {
     "start": "nodemon server",
     "build": "webpack -w -d",
-    "seed": "node database/seed.js"
+    "seed": "node --max-old-space-size=16384 database/seed.js",
+    "imgseed": "node --max-old-space-size=16384 database/imgseed.js",
+    "qnaseed": "node --max-old-space-size=16384 database/qnaseed.js"
   },
   "dependencies": {
     "axios": "^0.19.0",
@@ -21,6 +23,7 @@
     "cheerio": "^1.0.0-rc.3",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "faker": "^4.1.0",
     "images-downloader": "^1.0.3",
     "images-scraper": "^2.0.11",
     "limiter": "^1.1.4",
@@ -29,12 +32,14 @@
     "mongoose": "^5.6.3",
     "nightmare": "^3.0.2",
     "nodemon": "^1.19.1",
+    "pg": "^7.12.0",
     "react": "^16.8.6",
     "react-collapsible": "^2.6.0",
     "react-dom": "^16.8.6",
     "react-icons": "^3.7.0",
     "react-modal": "^3.9.1",
     "request": "^2.88.0",
+    "sequelize": "^5.10.3",
     "validator": "^11.1.0",
     "webpack": "^4.35.2",
     "webpack-cli": "^3.3.5"
