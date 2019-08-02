@@ -5,7 +5,7 @@ var client = new pg.Client(conString);
 client.connect()
 
 const getByIdSQL = (id) => {
-    return client.query(`select * from productpage where productid=${id}`)
+    return client.query(`SELECT * from productpage where productid=10000000`)
 }
 
 const addTechSpecSQL = (id,technicalFeatures,designAndFit,zippersAndFly,pocketConfig,construction,collarConfig,hemConfig,fabricTreatment,materials,care) => {
