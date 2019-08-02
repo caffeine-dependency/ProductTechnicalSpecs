@@ -104,10 +104,7 @@ var answerGenerator = function() {
 
 var dateGenerator = function() {
   
-    var date = new Date(faker.date.past()).toLocaleDateString('en-US', {  
-        month : 'short',
-        year : 'numeric'
-    })
+    var date = new Date(faker.date.past()).toLocaleDateString('en-US', {month : 'numeric',day: 'numeric',year : 'numeric'})
     return date
 }
 
