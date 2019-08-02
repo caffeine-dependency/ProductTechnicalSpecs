@@ -28,32 +28,21 @@ CREATE TABLE imgcarousel (
   imgcaption text NOT NULL
 ); 
 
-CREATE TABLE question (
+CREATE TABLE qanda (
   id int PRIMARY KEY,
   productid int REFERENCES techspecs(productid),
   questionHeader text NOT NULL,
   questionContent text NOT NULL,
   questionDate date NOT NULL,
-  thumbsUp smallint NOT NULL,
+  thumbsUp smallint NOT NULL,      
   thumbsDown smallint NOT NULL,
   username text NOT NULL,
   userLocation text NOT NULL,
   userAge smallint NOT NULL,
-  userActivity text NOT NULL
+  userActivity text NOT NULL,
+  answer text
 );
 
-CREATE TABLE answers (
-  questionid int REFERENCES question(id),
-  answer text NOT NULL,
-  answerDate date NOT NULL,
-  thumbsUp smallint NOT NULL,
-  thumbsDown smallint NOT NULL,
-  username text NOT NULL,
-  userLocation text NOT NULL,
-  userAge smallint NOT NULL,
-  userActivity text NOT NULL
-);
-select techspecs.*, array_agg('[' || imgcarousel.imageurl || ',' || imgcarousel.username || ',' || imgcarousel.imgcaption || ']') as userimages  from imgcarousel inner join techspecs on techspecs.productid = imgcarousel.productid group by techspecs.productid;
 
 
-CREATE MATERIALIZED VIEW productpage as select techspecs.*, array_agg(string_to_array(imgcarousel.imageurl || ',' || imgcarousel.username || ',' || imgcarousel.imgcaption,',')) as userimages  from imgcarousel inner join techspecs on techspecs.productid = imgcarousel.productid group by techspecs.productid;
+
