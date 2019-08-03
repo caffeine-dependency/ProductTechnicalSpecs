@@ -10,8 +10,8 @@
   "scripts": {
     "start": "nodemon server",
     "build": "webpack -w -d",
-    "seed": "node --max-old-space-size=16384 database/seed.js",
-    "imgseed": "node --max-old-space-size=16384 database/imgseed.js",
+    "seed": "node --max-old-space-size=16384 database/seedwdrain.js",
+    "imgseed": "node --max-old-space-size=16384 database/imgseedwdrain.js",
     "qnaseed": "node --max-old-space-size=16384 database/qnaseed.js"
   },
   "dependencies": {
@@ -30,6 +30,7 @@
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
     "mongoose": "^5.6.3",
+    "newrelic": "^5.11.0",
     "nightmare": "^3.0.2",
     "nodemon": "^1.19.1",
     "pg": "^7.12.0",
