@@ -45,4 +45,3 @@ CREATE TABLE qanda (
 
 
 
-
