@@ -2,15 +2,11 @@ config:
   target: 'http://localhost:2003'
   phases:
     - duration: 60
-      arrivalRate: 5
+      arrivalRate: 750
   defaults:
     headers:
       x-my-service-auth: '987401838271002188298567'
 scenarios:
   - flow:
-    - loop:
-      - get:
-          url: "http://localhost:2003/api/product/1000000"
-          followRedirect: false
-          count: 1000
-        
+    - get:
+        url: "http://localhost:2003/api/product/1000000"
