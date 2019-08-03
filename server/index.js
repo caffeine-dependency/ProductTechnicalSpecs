@@ -1,10 +1,11 @@
+require('newrelic');
 const express = require('express');
 const path = require('path');
 const parser = require('body-parser');
 const cors = require('cors');
 const clusters = require('cluster')
 const numCPUs = require('os').cpus().length
-const {getByIdSQL, addTechSpecSQL, deleteTechSpecSQL} = require('../database/index')
+const {getById, addTechSpec, deleteTechSpec} = require('../database/index')
 
 
 
@@ -23,7 +24,7 @@ app.use(express.static(path.join(__dirname, '../client/dist')));
 
 app.get('/api/product/:id', (req, res) => {
   let {id} = req.params;
-  getByIdSQL(id)
+  getById(id)
   .then((data) => {
     res.status(200).send(data.rows);
   })
@@ -36,7 +37,7 @@ app.get('/api/product/:id', (req, res) => {
 app.post('/api/product', (req, res) => {
   console.log(req.body)
   let {id,technicalFeatures,designAndFit,zippersAndFly,pocketConfig,construction,collarConfig,hemConfig,fabricTreatment,materials,care} = req.body;
-  addTechSpecSQL(id,technicalFeatures,designAndFit,zippersAndFly,pocketConfig,construction,collarConfig,hemConfig,fabricTreatment,materials,care)
+  addTechSpec(id,technicalFeatures,designAndFit,zippersAndFly,pocketConfig,construction,collarConfig,hemConfig,fabricTreatment,materials,care)
   .then(() => {
     res.status(201).send('data added!');
   })
@@ -48,7 +49,7 @@ app.post('/api/product', (req, res) => {
 
 app.delete('/api/product/:id', (req,res) => {
   let {id} = req.params;
-  deleteTechSpecSQL(id)
+  deleteTechSpec(id)
     .then(() => {
       res.status(200).send('document deleted')
     })
