@@ -1,7 +1,9 @@
 const {
     getTechSpecById,
     addTechSpec,
-    deleteTechSpec
+    deleteTechSpec,
+    addImg,
+    addQuestion
 } = require('../database/dbhelpers')
 
 // Tech Spec Controllers
