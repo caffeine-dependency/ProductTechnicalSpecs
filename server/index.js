@@ -5,8 +5,7 @@ const parser = require('body-parser');
 const cors = require('cors');
 const clusters = require('cluster')
 const numCPUs = require('os').cpus().length
-const {getById, addTechSpec, deleteTechSpec} = require('../database/index')
-
+const router = require('./routes')
 
 
 const app = express();
@@ -16,47 +15,11 @@ app.use(cors());
 app.use(parser.json());
 app.use(parser.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, '../client/dist')));
+app.use('/api', router)
 
 
 
-/* SERVER FUNCTIONS FOR HANDLING THE ROUTES */
 
-
-app.get('/api/product/:id', (req, res) => {
-  let {id} = req.params;
-  getById(id)
-  .then((data) => {
-    res.status(200).send(data.rows);
-  })
-  .catch((error) => {
-    res.status(404).send(error);
-  });
-})
-
-
-app.post('/api/product', (req, res) => {
-  console.log(req.body)
-  let {id,technicalFeatures,designAndFit,zippersAndFly,pocketConfig,construction,collarConfig,hemConfig,fabricTreatment,materials,care} = req.body;
-  addTechSpec(id,technicalFeatures,designAndFit,zippersAndFly,pocketConfig,construction,collarConfig,hemConfig,fabricTreatment,materials,care)
-  .then(() => {
-    res.status(201).send('data added!');
-  })
-  .catch((error) => {
-    res.status(404).send(error);
-  })
-})
-
-
-app.delete('/api/product/:id', (req,res) => {
-  let {id} = req.params;
-  deleteTechSpec(id)
-    .then(() => {
-      res.status(200).send('document deleted')
-    })
-    .catch((error) => {
-      res.status(404).send(error);
-    })
-})
 
 if (clusters.isMaster) {
   for (let i = 0; i < numCPUs; i++) {
