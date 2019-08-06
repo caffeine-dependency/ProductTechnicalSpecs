@@ -11,8 +11,8 @@
     "start": "nodemon server",
     "build": "webpack -w -d",
     "seed": "node --max-old-space-size=16384 database/seedwdrain.js",
-    "imgseed": "node --max-old-space-size=16384 database/imgseedwdrain.js",
-    "qnaseed": "node --max-old-space-size=16384 database/qnaseed.js"
+    "imgseed": "node --max-old-space-size=16384 database/SeedFiles/imgseedwdrain.js",
+    "qnaseed": "node --max-old-space-size=16384 database/SeedFiles/QandAseed.js"
   },
   "dependencies": {
     "axios": "^0.19.0",
