@@ -198,7 +198,7 @@ function write() {
     var ok = true;
     do {
         i++
-        var image = `${i}|${imageURLGenerator()}|${names[Math.floor(Math.random() * names.length)]}|${imageCaptionGenerator()}\n`
+        var image = `${i}|${prodid}|${imageURLGenerator()}|${names[Math.floor(Math.random() * names.length)]}|${imageCaptionGenerator()}\n`
         if(i === 15000000) {
             console.log('Woah, we\'re half way there')
         }

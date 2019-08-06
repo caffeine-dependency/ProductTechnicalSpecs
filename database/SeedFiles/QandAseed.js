@@ -547,21 +547,18 @@ const dates = [
 ]
 
 var i = 0;
-var prodid = 1
+
 
     
 function write() {
     var ok = true;
     do {
         i++
-        var question = `${i}|${prodid}|${faker.lorem.sentence().slice(0, -1)}?|${faker.lorem.sentences()}|${dates[Math.floor(Math.random() * dates.length)]}|${Math.floor(Math.random() * 6)}|${Math.floor(Math.random() * 6)}|${names[Math.floor(Math.random() * names.length)]}|${locations[Math.floor(Math.random() * locations.length)]}|${Math.floor(Math.random() * (75 - 18 + 1)) + 18}|${activities[Math.floor(Math.random() * activities.length)]}|${faker.lorem.sentences()}}\n`
-        if(i === 24) {
+        var question = `${i}|${i}|${faker.lorem.sentence().slice(0, -1)}?|${faker.lorem.sentences()}|${dates[Math.floor(Math.random() * dates.length)]}|${Math.floor(Math.random() * 6)}|${Math.floor(Math.random() * 6)}|${names[Math.floor(Math.random() * names.length)]}|${locations[Math.floor(Math.random() * locations.length)]}|${Math.floor(Math.random() * (75 - 18 + 1)) + 18}|${activities[Math.floor(Math.random() * activities.length)]}|${faker.lorem.sentences()}}\n`
+        if(i === 5000000) {
             console.log('Woah, we\'re half way there')
         }
-        if (i % 3 === 0) {
-            prodid++
-        }
-        if (i === 48) {
+        if (i === 10000000) {
             wStream.write(question, 'utf8', () => {
                 wStream.end()
             });
@@ -569,7 +566,7 @@ function write() {
         } else {
             ok = wStream.write(question, 'utf8');
         }
-    } while (i < 48 && ok);
+    } while (i < 10000000 && ok);
     if (i > 0) {
         wStream.once('drain', write);
     }
