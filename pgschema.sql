@@ -22,8 +22,9 @@ CREATE TABLE techspecs (
 
 
 CREATE TABLE imgcarousel (
+  imgid int PRIMARY KEY,
   productid int REFERENCES techspecs(productid),
-  imageurl text NOT NULL,
+  imageurl varchar(30) NOT NULL,
   username text NOT NULL,
   imgcaption text NOT NULL
 ); 
