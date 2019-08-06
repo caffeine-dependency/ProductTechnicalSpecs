@@ -3,7 +3,7 @@ const client = require('./index')
 // Technical Spec Queries
 
 const getTechSpecById = (id) => {
-    return client.query(`SELECT techspecs.*, array_agg(DISTINCT string_to_array( imgcarousel.imageurl || ',' || imgcarousel.username || ',' || imgcarousel.imgcaption, ',')) AS imagecarousel, json_agg(DISTINCT qanda) as QandA FROM techspecs INNER JOIN imgcarousel ON imgcarousel.productid = techspecs.productid INNER JOIN qanda ON qanda.productid = techspecs.productid WHERE techspecs.productid=10000000 GROUP BY techspecs.productid`)
+    return client.query(`EXPLAIN ANALYZE SELECT techspecs.*, array_agg(DISTINCT string_to_array( imgcarousel.imageurl || ',' || imgcarousel.username || ',' || imgcarousel.imgcaption, ',')) AS imagecarousel, json_agg(DISTINCT qanda) as QandA FROM techspecs INNER JOIN imgcarousel ON imgcarousel.productid = techspecs.productid INNER JOIN qanda ON qanda.productid = techspecs.productid WHERE techspecs.productid=10000000 GROUP BY techspecs.productid`)
 }
 
 const addTechSpec = (id,technicalFeatures,designAndFit,zippersAndFly,pocketConfig,construction,collarConfig,hemConfig,fabricTreatment,materials,care) => {
