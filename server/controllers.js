@@ -18,8 +18,7 @@ const getTechSpec =  (req, res) => {
         res.status(404).send(error);
     });
 }
-  
-  
+
 const createTechSpec = (req, res) => {
     let {id,technicalFeatures,designAndFit,zippersAndFly,pocketConfig,construction,collarConfig,hemConfig,fabricTreatment,materials,care} = req.body;
     addTechSpec(id,technicalFeatures,designAndFit,zippersAndFly,pocketConfig,construction,collarConfig,hemConfig,fabricTreatment,materials,care)
@@ -68,8 +67,6 @@ const insertQuestion = (req,res) => {
         res.status(404).send('failed to add question')
     })
 }
-
-
 
 module.exports = {
     getTechSpec,
