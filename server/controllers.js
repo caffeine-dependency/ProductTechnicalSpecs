@@ -18,7 +18,6 @@ const getTechSpec =  (req, res) => {
         res.status(404).send(error);
     });
 }
-
 const createTechSpec = (req, res) => {
     let {id,technicalFeatures,designAndFit,zippersAndFly,pocketConfig,construction,collarConfig,hemConfig,fabricTreatment,materials,care} = req.body;
     addTechSpec(id,technicalFeatures,designAndFit,zippersAndFly,pocketConfig,construction,collarConfig,hemConfig,fabricTreatment,materials,care)
